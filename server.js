@@ -41,18 +41,19 @@ app.get('/', (req, res) => {
 // CHEESE INDEX ROUTE
 app.get("/cheeses", async (req, res) => {
     try {
-        res.json(await Cheese.find({}));
+       const cheese = await Cheese.find({});
+       res.json(cheese);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({err});
     }
 });
 
 // CHEESE CREATE ROUTE
 app.post("/cheeses", async (req, res) => {
     try {
-    res.json(await Cheese.create(req.body));
+    const cheese = await Cheese.create(req.body);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({err});
     }
 });
 
@@ -85,9 +86,10 @@ app.put("/cheeses/:id", async (req, res) => {
 // CHEESE DELETE ROUTE
 app.delete("/cheeses/:id", async (req, res) => {
     try {
-        res.json(await Cheese.findByIdAndRemove(req.params.id));
+        const cheese = await Cheese.findByIdAndRemove(req.params.id);
+        res.status(200).json(cheese);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({err});
     }
 });
 
